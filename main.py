@@ -45,22 +45,22 @@ def load_classes(file_path):
 
 
 def main():
-    # Charger la liste des classes (uniquement "personne" dans ce cas)
+    # Load the list of classes
     classes = load_classes('./class.txt')
 
-    # Charger le modèle YOLO
+    # Load the YOLO model
     net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
 
-    # Charger les noms des couches de sortie du modèle
+    # Load the names of the output layers of the model
     output_layer_names = net.getUnconnectedOutLayersNames()
 
-    # Ouvrir le flux vidéo en temps réel (0 pour la webcam)
+    # Open the real-time video stream (0 for webcam)
     cap = cv2.VideoCapture(0)
 
     while True:
         ret, frame = cap.read()
         if not ret:
-            print("Erreur lors de la capture d'un nouveau cadre.")
+            print("Error while capturing a new frame.")
             break
         
         height, width, channels = frame.shape
@@ -100,11 +100,11 @@ def main():
                 color = (0, 255, 0)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
                 cv2.putText(frame, label, (x, y + 30), cv2.FONT_HERSHEY_PLAIN, 2, color, 2)
-                print("personne détectée !")
-                cv2.imwrite("personne_detecte.png", frame)
-                send_email("Personne détectée !", "Une personne a été détecté. Veuillez vérifier l'activité.", "personne_detecte.png")
+                print("Person detected !")
+                cv2.imwrite("person_detected.png", frame)
+                send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
 
-        cv2.imshow("Détection d'objets en temps réel", frame)
+        cv2.imshow("Real-time person detection", frame)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
