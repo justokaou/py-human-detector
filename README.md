@@ -35,7 +35,7 @@ python3 main.py
 If you don't have access to a desktop environment, you can use :
 
 ```bash
-xvfb-run python3 main.python3
+python3 main.py
 ```
 
 #### Alternatively
@@ -52,7 +52,7 @@ do
 echo -e start human detector
 
 source [path-to-your-venv]/venv/bin/activate
-xvfb-run python3 ./main.py
+python3 ./main.py
 deactivate
 
 echo -e restarting human detector in 5 seconds
@@ -68,7 +68,7 @@ while true
 do
 
 echo -e start human detector
-xvfb-run python3 ./main.py
+python3 ./main.py
 
 echo -e restarting human detector in 5 seconds
 sleep 5
