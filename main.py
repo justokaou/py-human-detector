@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def send_email(subject, body, image_filename=None):
     user = os.getenv('user')
     password = os.getenv('password')
@@ -62,7 +63,7 @@ def main():
         if not ret:
             print("Error while capturing a new frame.")
             break
-        
+
         height, width, channels = frame.shape
 
         blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
@@ -83,10 +84,10 @@ def main():
                     center_y = int(detection[1] * height)
                     w = int(detection[2] * width)
                     h = int(detection[3] * height)
-                    
+
                     x = int(center_x - w / 2)
                     y = int(center_y - h / 2)
-                    
+
                     boxes.append([x, y, w, h])
                     confidences.append(float(confidence))
                     class_ids.append(class_id)
@@ -103,11 +104,6 @@ def main():
                 print("Person detected !")
                 cv2.imwrite("person_detected.png", frame)
                 send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
-
-        cv2.imshow("Real-time person detection", frame)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
 
     cap.release()
     cv2.destroyAllWindows()

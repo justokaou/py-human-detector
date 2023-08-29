@@ -1,2 +1,4 @@
 motion-detector-image/
 **/.env
+*.mp4
+*.png
