@@ -6,7 +6,7 @@ do
 echo -e start human detector
 
 source ./venv/bin/activate
-xvfb-run python3 ./main.py
+python3 ./main.py
 
 deactivate
 
