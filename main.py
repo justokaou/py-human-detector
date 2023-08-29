@@ -7,6 +7,8 @@ from email.mime.image import MIMEImage
 import ssl
 import os
 from dotenv import load_dotenv
+import time
+from datetime import datetime
 
 load_dotenv()
 
@@ -43,6 +45,27 @@ def load_classes(file_path):
     with open(file_path, 'r') as file:
         classes = [line.strip() for line in file.readlines()]
     return classes
+
+
+def record_video(cap, output_dir, duration):
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fps = 30
+    width = int(cap.get(3))  # Largeur
+    height = int(cap.get(4))  # Hauteur
+
+    current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    output_filename = os.path.join(output_dir, f'video_{current_datetime}.mp4')
+
+    video_writer = cv2.VideoWriter(output_filename, fourcc, fps, (width, height))
+
+    start_time = time.time()
+    while time.time() - start_time < duration:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        video_writer.write(frame)
+
+    video_writer.release()
 
 
 def main():
@@ -103,7 +126,13 @@ def main():
                 cv2.putText(frame, label, (x, y + 30), cv2.FONT_HERSHEY_PLAIN, 2, color, 2)
                 print("Person detected !")
                 cv2.imwrite("person_detected.png", frame)
-                send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
+                # send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
+
+                output_dir = 'recorded_videos'
+                if not os.path.exists(output_dir):
+                    os.makedirs(output_dir)
+
+                record_video(cap, output_dir, 30)
 
     cap.release()
     cv2.destroyAllWindows()
