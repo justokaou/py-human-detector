@@ -103,7 +103,7 @@ def main():
                 cv2.putText(frame, label, (x, y + 30), cv2.FONT_HERSHEY_PLAIN, 2, color, 2)
                 print("Person detected !")
                 cv2.imwrite("person_detected.png", frame)
-                # send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
+                send_email("Person detected !", "A person has been detected. Please check the activity.", "person_detected.png")
 
     cap.release()
     cv2.destroyAllWindows()
