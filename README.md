@@ -86,4 +86,10 @@ Now you can run the project using :
 ./start.sh
 ```
 
+## 🛡️ License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Authors
+
 - **JustOkaou** - [GitHub Profile](https://github.com/justokaou)
