@@ -85,3 +85,5 @@ Now you can run the project using :
 ```bash
 ./start.sh
 ```
+
+- **JustOkaou** - [GitHub Profile](https://github.com/justokaou)
